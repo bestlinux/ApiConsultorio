@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente
 {
-    internal class GetAllPacienteResponse
+    public sealed record GetAllPacienteResponse
     {
+        public int Id { get; set; }
+        public string? Nome { get; set; }
     }
 }
