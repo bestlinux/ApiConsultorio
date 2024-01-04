@@ -1,0 +1,22 @@
+{
+  "paciente": {
+    "id": 1,
+    "nome": "Diego",
+    "telefone": "11-995988050",
+    "nascimento": "2023-12-12T22:29:12.082Z",
+    "sexo": "Masculino",
+    "email": "bestlinux@gmail.com",
+    "cpf": "321.692.358-41",
+    "cep": "02402-600",
+    "logradouro": "Rua Vpluntarios da Patria",
+    "numeroLogradouro": "4212",
+    "complemento": "Apt 94",
+    "bairro": "Santana",
+    "cidade": "São Paulo",
+    "tipoPagamento": "MENSAL",
+    "valorSessao": 210.00,
+    "diaVencimento": 26,
+    "statusPagamento": true,
+    "ativo": true
+  }
+}

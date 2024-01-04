@@ -32,20 +32,32 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
         public async Task<CreatePacienteResponse> Handle(CreatePacienteRequest request,
          CancellationToken cancellationToken)
         {
-            var paciente = _mapper.Map<Paciente>(request);
-
-            await _pacienteRepository.AddAsync(paciente);
-
-            await _unitOfWork.Commit(cancellationToken);
-
-            await _mediator.Publish(new PacienteActionNotification
+            try
             {
-                Nome = request.Paciente.Nome,
-                Action = ActionNotification.Created
-            }, cancellationToken);
+                var paciente = _mapper.Map<Paciente>(request);
 
-            return _mapper.Map<CreatePacienteResponse>(paciente);
+                await _pacienteRepository.AddAsync(paciente);
+
+                await _unitOfWork.Commit(cancellationToken);
+
+                await _mediator.Publish(new PacienteActionNotification
+                {
+                    Nome = request.Nome,
+                    Action = ActionNotification.Created
+                }, cancellationToken);
+
+                return _mapper.Map<CreatePacienteResponse>(paciente);
+            }
+            catch (Exception ex)
+            {
+                await _mediator.Publish(new ErrorNotification
+                {
+                    Error = "Ocorreu um erro ao criar o paciente",
+                    Stack = ex.StackTrace,
+                }, cancellationToken);
+                return null;
+            }
         }
-      
+
     }
 }

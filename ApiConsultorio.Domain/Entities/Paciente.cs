@@ -7,29 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiConsultorio.Domain.Entities
 {
-    public class Paciente : Entity
+    public sealed class Paciente : Entity
     {
         public Paciente() { }
 
-        [Required(ErrorMessage = "O nome é requerido")]
-        [MinLength(3)]
-        [MaxLength(500)]
-        [DisplayName("Nome")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "O telefone é obrigatória")]
-        [MinLength(5)]
-        [MaxLength(50)]
-        [DisplayName("Telefone")]
         public string Telefone { get; set; }
 
-        [Required(ErrorMessage = "O nascimento é obrigatório")]
-        [DisplayName("Nascimento")]
-        public DateTime Nascimento { get; set; }
-
+        public DateTime DataNascimento { get; set; }
         public string Sexo { get; set; }
 
         public string Email { get; set; }
@@ -37,27 +27,28 @@ namespace ApiConsultorio.Domain.Entities
         public string CPF { get; set; }
 
         //ENDERECO
-        public string CEP { get; set; }
+        public string? CEP { get; set; }
 
-        public string Logradouro { get; set; }
+        public string? Logradouro { get; set; }
 
-        public string NumeroLogradouro { get; set; }
+        public string? NumeroLogradouro { get; set; }
 
-        public string Complemento { get; set; }
+        public string? Complemento { get; set; }
 
-        public string Bairro { get; set; }
+        public string? Bairro { get; set; }
 
-        public string Cidade { get; set; }
+        public string? Cidade { get; set; }
 
         //MENSAL
         //AVULSO
-        public int TipoPagamento { get; set; }
+        //GRATUITO
+        public string TipoPagamento { get; set; }
 
-        public double ValorSessao { get; set; }
+        public decimal? ValorSessao { get; set; }
 
-        public int DiaVencimento { get; set; }
+        public int? DiaVencimento { get; set; }
 
-        public bool StatusPagamento { get; set; }
+        public bool? StatusPagamento { get; set; }
 
         public bool Ativo { get; set; }
 

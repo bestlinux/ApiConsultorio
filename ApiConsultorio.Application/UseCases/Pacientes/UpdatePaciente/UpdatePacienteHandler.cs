@@ -33,19 +33,31 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente
         public async Task<UpdatePacienteResponse> Handle(UpdatePacienteRequest request,
            CancellationToken cancellationToken)
         {
-            var paciente = _mapper.Map<Paciente>(request);
-
-            await _pacienteRepository.UpdateAsync(paciente);
-
-            await _unitOfWork.Commit(cancellationToken);
-
-            await _mediator.Publish(new PacienteActionNotification
+            try
             {
-                Nome = request.Paciente.Nome,
-                Action = ActionNotification.Updated
-            }, cancellationToken);
+                var paciente = _mapper.Map<Paciente>(request);
 
-            return _mapper.Map<UpdatePacienteResponse>(paciente);
+                await _pacienteRepository.UpdateAsync(paciente);
+
+                await _unitOfWork.Commit(cancellationToken);
+
+                await _mediator.Publish(new PacienteActionNotification
+                {
+                    Nome = request.Nome,
+                    Action = ActionNotification.Updated
+                }, cancellationToken);
+
+                return _mapper.Map<UpdatePacienteResponse>(paciente);
+            }
+            catch (Exception ex)
+            {
+                await _mediator.Publish(new ErrorNotification
+                {
+                    Error = "Ocorreu um erro ao atualizar o paciente",
+                    Stack = ex.StackTrace,
+                }, cancellationToken);
+                return null;
+            }
         }
     }
 }

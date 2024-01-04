@@ -4,6 +4,7 @@ using ApiConsultorio.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiConsultorio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231212224640_Atualiza-Paciente2")]
+    partial class AtualizaPaciente2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,9 +238,11 @@ namespace ApiConsultorio.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Bairro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CEP")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CPF")
@@ -246,15 +251,14 @@ namespace ApiConsultorio.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Cidade")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complemento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DiaVencimento")
+                    b.Property<int>("DiaVencimento")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -263,21 +267,26 @@ namespace ApiConsultorio.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Logradouro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Nascimento")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(600)
-                        .HasColumnType("nvarchar(600)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("NumeroLogradouro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("StatusPagamento")
+                    b.Property<bool>("StatusPagamento")
                         .HasColumnType("bit");
 
                     b.Property<string>("Telefone")
@@ -287,11 +296,10 @@ namespace ApiConsultorio.Migrations
 
                     b.Property<string>("TipoPagamento")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal?>("ValorSessao")
-                        .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");

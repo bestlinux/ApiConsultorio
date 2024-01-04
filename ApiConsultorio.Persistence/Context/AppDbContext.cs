@@ -23,15 +23,26 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 		// criação do modelo.
 		builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-		//builder.Entity<Category>().HasKey(t => t.Id);
-		//builder.Entity<Category>().
-		//	Property(p => p.Nome).HasMaxLength(100).IsRequired();
+        //builder.Entity<Category>().HasKey(t => t.Id);
+        //builder.Entity<Category>().
+        //	Property(p => p.Nome).HasMaxLength(100).IsRequired();
 
-		//builder.Entity<Categoria>().
-		//  Property(p => p.IconCSS).HasMaxLength(100).IsRequired();
+        //builder.Entity<Categoria>().
+        //  Property(p => p.IconCSS).HasMaxLength(100).IsRequired();
 
-		// 1 : N => Categoria : Mangas
-		builder.Entity<Category>().HasKey(t => t.Id);
+        // 1 : N => Categoria : Mangas
+        builder.Entity<Paciente>().HasKey(t => t.Id);
+        builder.Entity<Paciente>().Property(p => p.Nome).HasMaxLength(600).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.Telefone).HasMaxLength(50).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.DataNascimento).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.Sexo).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.Email).HasMaxLength(100).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.CPF).HasMaxLength(100).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.TipoPagamento).HasMaxLength(100).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.ValorSessao).HasPrecision(10, 2);
+        builder.Entity<Paciente>().Property(p => p.Ativo).IsRequired();
+
+        builder.Entity<Category>().HasKey(t => t.Id);
 		builder.Entity<Category>().HasMany(c => c.Mangas)
 			.WithOne(b => b.Categoria)
 			.HasForeignKey(b => b.CategoriaId);

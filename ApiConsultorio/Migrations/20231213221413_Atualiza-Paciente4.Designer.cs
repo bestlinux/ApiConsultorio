@@ -4,6 +4,7 @@ using ApiConsultorio.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiConsultorio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213221413_Atualiza-Paciente4")]
+    partial class AtualizaPaciente4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,9 +254,6 @@ namespace ApiConsultorio.Migrations
                     b.Property<string>("Complemento")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("DiaVencimento")
                         .HasColumnType("int");
 
@@ -264,6 +264,9 @@ namespace ApiConsultorio.Migrations
 
                     b.Property<string>("Logradouro")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Nascimento")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
                         .IsRequired()
