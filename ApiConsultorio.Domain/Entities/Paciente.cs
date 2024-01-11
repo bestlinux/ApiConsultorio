@@ -41,7 +41,7 @@ namespace ApiConsultorio.Domain.Entities
 
         public string? Cidade { get; set; }
 
-        public string Estado { get; set; }
+        public string? Estado { get; set; }
 
         //MENSAL
         //AVULSO

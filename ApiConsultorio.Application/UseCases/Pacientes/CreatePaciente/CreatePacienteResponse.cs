@@ -12,25 +12,15 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O campo nome é obrigatório")]
-        [MinLength(3)]
-        [MaxLength(200)]
-        [DisplayName("Nome")]
         public string? Nome { get; set; }
 
-        [Required(ErrorMessage = "O campo sexo é obrigatório")]
         public int Sexo { get; set; }
 
-        [Required(ErrorMessage = "O campo data nascimento é obrigatório")]
         public DateTime DataNascimento { get; set; }
 
-        [Required(ErrorMessage = "O campo telefone é obrigatório")]
         public string Telefone { get; set; }
 
-        [Required(ErrorMessage = "O campo email é obrigatório")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "O campo cpf é obrigatório")]
         public string CPF { get; set; }
 
         public int Pais { get; set; }
