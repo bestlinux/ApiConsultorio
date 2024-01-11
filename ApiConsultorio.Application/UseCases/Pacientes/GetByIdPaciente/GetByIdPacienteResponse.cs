@@ -1,16 +1,12 @@
-﻿using ApiConsultorio.Domain.Entities;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente
+namespace ApiConsultorio.Application.UseCases.Pacientes.GetByIdPaciente
 {
-    public class UpdatePacienteRequest : IRequest<UpdatePacienteResponse>
+    public class GetByIdPacienteResponse
     {
         public int Id { get; set; }
 

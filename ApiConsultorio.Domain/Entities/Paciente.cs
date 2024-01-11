@@ -20,11 +20,13 @@ namespace ApiConsultorio.Domain.Entities
         public string Telefone { get; set; }
 
         public DateTime DataNascimento { get; set; }
-        public string Sexo { get; set; }
+        public int Sexo { get; set; }
 
         public string Email { get; set; }
 
         public string CPF { get; set; }
+
+        public int Pais { get; set; }
 
         //ENDERECO
         public string? CEP { get; set; }
@@ -39,6 +41,8 @@ namespace ApiConsultorio.Domain.Entities
 
         public string? Cidade { get; set; }
 
+        public string Estado { get; set; }
+
         //MENSAL
         //AVULSO
         //GRATUITO
@@ -48,9 +52,9 @@ namespace ApiConsultorio.Domain.Entities
 
         public int? DiaVencimento { get; set; }
 
-        public bool? StatusPagamento { get; set; }
+        public int? StatusPagamento { get; set; }
 
-        public bool Ativo { get; set; }
+        public int Ativo { get; set; }
 
     }
 }

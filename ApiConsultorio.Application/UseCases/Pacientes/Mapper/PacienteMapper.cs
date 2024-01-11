@@ -1,6 +1,7 @@
 ﻿using ApiConsultorio.Application.UseCases.Categorys.UpdateCategory;
 using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente;
+using ApiConsultorio.Application.UseCases.Pacientes.GetByIdPaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente;
 using ApiConsultorio.Domain.Entities;
 using AutoMapper;
@@ -22,6 +23,8 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.Mapper
             CreateMap<Paciente, UpdatePacienteResponse>();
             CreateMap<GetAllPacienteRequest, Paciente>();
             CreateMap<Paciente, GetAllPacienteResponse>();
+            CreateMap<GetByIdPacienteRequest, Paciente>();
+            CreateMap<Paciente, GetByIdPacienteResponse>();
         }
     }
 }

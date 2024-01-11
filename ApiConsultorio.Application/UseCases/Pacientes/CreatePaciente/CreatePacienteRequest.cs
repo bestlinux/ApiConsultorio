@@ -46,7 +46,7 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
         public string Bairro { get; set; }
 
         public string Logradouro { get; set; }
-        public string Numero { get; set; }
+        public string NumeroLogradouro { get; set; }
 
         public string? Complemento { get; set; }
 
@@ -59,7 +59,7 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
 
         public int? DiaVencimento { get; set; }
 
-        public bool? StatusPagamento { get; set; }
+        public int? StatusPagamento { get; set; }
 
         public int Ativo { get; set; }
         /*[Required(ErrorMessage = "O campo Cidade é obrigatório")]
