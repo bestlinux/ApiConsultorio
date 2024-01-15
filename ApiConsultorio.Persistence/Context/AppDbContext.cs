@@ -14,7 +14,9 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
 	public DbSet<Paciente> Pacientes { get; set; }
 
-	protected override void OnModelCreating(ModelBuilder builder)
+    public DbSet<Pagamento> Pagamentos { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
 		// aplica as configurações de mapeamento das entidades
@@ -41,6 +43,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Paciente>().Property(p => p.TipoPagamento).HasMaxLength(100).IsRequired();
         builder.Entity<Paciente>().Property(p => p.ValorSessao).HasPrecision(10, 2);
         builder.Entity<Paciente>().Property(p => p.Ativo).IsRequired();
+
+		builder.Entity<Pagamento>().HasKey(t => t.Id);
 
         builder.Entity<Category>().HasKey(t => t.Id);
 		builder.Entity<Category>().HasMany(c => c.Mangas)

@@ -17,7 +17,7 @@ namespace ApiConsultorio.Application.Services.Events
             return Task.Run(() =>
             {
                 Console.WriteLine($"Paciente {notification.Nome} - foi {notification.Action.ToString().ToLower()} com sucesso !");
-            });
+            }, cancellationToken);
         }
 
         public Task Handle(ErrorNotification notification, CancellationToken cancellationToken)
@@ -25,7 +25,7 @@ namespace ApiConsultorio.Application.Services.Events
             return Task.Run(() =>
             {
                 Console.WriteLine($"ERROR : '{notification.Error} \n {notification.Stack}'");
-            });
+            }, cancellationToken);
         }
     }
 }
