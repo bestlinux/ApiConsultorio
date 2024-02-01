@@ -1,5 +1,6 @@
 ﻿using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
 using ApiConsultorio.Application.UseCases.Pagamentos.CreatePagamento;
+using ApiConsultorio.Application.UseCases.Pagamentos.UpdatePagamento;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,21 @@ namespace ApiConsultorio.Application.Shared.Validator
         public PagamentoCreateValidator()
         {
             RuleFor(x => x.Ano).NotEmpty();
-            RuleFor(x => x.Status).NotEmpty();
+            RuleFor(x => x.TipoPagamento).NotEmpty();
             RuleFor(x => x.Mes).NotEmpty();
             RuleFor(x => x.Valor).NotEmpty();
         }
     }
+
+    public class PagamentoUpdateValidator : AbstractValidator<UpdatePagamentoRequest>
+    {
+        public PagamentoUpdateValidator()
+        {
+            RuleFor(x => x.Ano).NotEmpty();
+            RuleFor(x => x.TipoPagamento).NotEmpty();
+            RuleFor(x => x.Mes).NotEmpty();
+            RuleFor(x => x.Valor).NotEmpty();
+        }
+    }
+
 }

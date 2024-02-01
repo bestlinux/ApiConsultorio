@@ -1,17 +1,14 @@
-﻿using ApiConsultorio.Domain.Common;
-using Microsoft.EntityFrameworkCore.Query;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsultorio.Domain.Entities
+namespace ApiConsultorio.Application.UseCases.Pagamentos.UpdatePagamento
 {
-    public class Pagamento : Entity
+    public class UpdatePagamentoResponse
     {
-
-        public Paciente? Paciente { get; set; }
+        public int Id { get; set; }
 
         public int TipoPagamento { get; set; }
 
@@ -24,6 +21,5 @@ namespace ApiConsultorio.Domain.Entities
         public int? PacienteId { get; set; }
 
         public int Ano { get; set; }
-
     }
 }

@@ -17,10 +17,4 @@
     <ProjectReference Include="..\ApiConsultorio.Domain\ApiConsultorio.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Pagamentos\DeletePagamento\" />
-    <Folder Include="UseCases\Pagamentos\GetAllPagamento\" />
-    <Folder Include="UseCases\Pagamentos\UpdatePagamento\" />
-  </ItemGroup>
-
 </Project>
