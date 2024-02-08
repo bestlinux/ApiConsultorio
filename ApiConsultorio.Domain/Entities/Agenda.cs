@@ -10,29 +10,29 @@ namespace ApiConsultorio.Domain.Entities
 {
     public class Agenda : Entity
     {
-        public string Paciente { get; set; }
+        public Paciente? Paciente { get; set; }
 
+        public int? PacienteId { get; set; }
 
-        //PRIMEIRO ATENDIMENTO
-        //CONSULTA
+        //1 - PRIMEIRO ATENDIMENTO
+        //2 - CONSULTA ONLINE
+        //3 - CONSULTA PRESENCIAL
 
-        public string TipoServico { get; set; }
+        public int? TipoConsulta { get; set; }
 
-        public string TipoSessao { get; set; }
+        //1 - ATENDIMENTO REALIZADO
+        //2 - FALTOU 
+        //3 - DESMARCADO
+
+        public int? StatusConsulta { get; set; }
 
         public DateTime InicioSessao { get; set; }
 
         public DateTime FimSessao { get; set; }
 
+        public double? ValorSessao { get; set; }
 
-        //MENSAL
-        //AVULSO
-        public int TipoPagamento { get; set; }
-
-
-        public Decimal ValorSessao { get; set; }
-
-        //REGRAS
+        /*//REGRAS
         //1 - QUANDO FOR PRIMEIRA CONSULTA, OS CAMPOS TIPO PAGAMENTO E VALOR SESSÃO VÃO ESTA DESABILITADOS
         //2 - QUANDO FOR CONSULTA, O CAMPO TIPOPAGAMENTO E VALORSESSAO VAO SER CARREGADOS ATRAVES DO CADASTRO DO PACIENTE
         //3 - ESTES CAMPOS, VÃO SER APENAS VISUALIZAÇÃO
@@ -49,6 +49,6 @@ namespace ApiConsultorio.Domain.Entities
         //DIAS DA SEMANA
         public int DiaRecorrencia { get; set; }
 
-        public int Quantidade { get; set; }
+        public int Quantidade { get; set; }*/
     }
 }

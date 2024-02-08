@@ -26,6 +26,7 @@ namespace ApiConsultorio.Persistence.Services
 			services.AddScoped<IMangaRepository, MangaRepository>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
+            services.AddScoped<IAgendaRepository, AgendaRepository>();
 
         }
     }
