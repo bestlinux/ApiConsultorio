@@ -8,7 +8,7 @@ namespace ApiConsultorio.Application.UseCases.Pagamentos.CreatePagamento
 {
     public class CreatePagamentoResponse
     {
-        public int TipoPagamento { get; set; }
+        public int StatusPagamento { get; set; }
 
         public double? Valor { get; set; }
 

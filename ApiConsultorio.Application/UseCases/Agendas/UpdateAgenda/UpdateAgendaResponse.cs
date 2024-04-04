@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
+namespace ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda
 {
-    public class CreateAgendaResponse
+    public class UpdateAgendaResponse
     {
         public int Id { get; set; }
         public int? PacienteId { get; set; }
+
+        public string? PacienteNome { get; set; }
 
         //1 - PRIMEIRO ATENDIMENTO
         //2 - CONSULTA ONLINE

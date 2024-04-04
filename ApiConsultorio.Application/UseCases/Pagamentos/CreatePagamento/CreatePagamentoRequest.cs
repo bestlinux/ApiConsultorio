@@ -10,7 +10,7 @@ namespace ApiConsultorio.Application.UseCases.Pagamentos.CreatePagamento
 {
     public class CreatePagamentoRequest : IRequest<CreatePagamentoResponse>
     {
-        public int TipoPagamento { get; set; }
+        public int StatusPagamento { get; set; }
 
         public double? Valor { get; set; }
 

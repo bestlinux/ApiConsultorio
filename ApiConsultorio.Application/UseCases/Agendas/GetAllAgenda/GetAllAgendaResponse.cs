@@ -1,17 +1,14 @@
-﻿using ApiConsultorio.Domain.Common;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsultorio.Domain.Entities
+namespace ApiConsultorio.Application.UseCases.Agendas.GetAllAgenda
 {
-    public class Agenda : Entity
+    public class GetAllAgendaResponse
     {
-        public Paciente? Paciente { get; set; }
-
+        public int Id { get; set; }
         public int? PacienteId { get; set; }
 
         public string? PacienteNome { get; set; }

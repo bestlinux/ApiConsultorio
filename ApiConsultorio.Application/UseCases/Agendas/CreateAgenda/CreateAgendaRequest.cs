@@ -11,6 +11,8 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
     {
         public int? PacienteId { get; set; }
 
+        public string? PacienteNome { get; set; }
+
         //1 - PRIMEIRO ATENDIMENTO
         //2 - CONSULTA ONLINE
         //3 - CONSULTA PRESENCIAL

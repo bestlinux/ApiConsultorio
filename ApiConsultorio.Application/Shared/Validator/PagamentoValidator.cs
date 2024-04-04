@@ -15,7 +15,7 @@ namespace ApiConsultorio.Application.Shared.Validator
         public PagamentoCreateValidator()
         {
             RuleFor(x => x.Ano).NotEmpty();
-            RuleFor(x => x.TipoPagamento).NotEmpty();
+            RuleFor(x => x.StatusPagamento).NotEmpty();
             RuleFor(x => x.Mes).NotEmpty();
             RuleFor(x => x.Valor).NotEmpty();
         }
@@ -26,7 +26,7 @@ namespace ApiConsultorio.Application.Shared.Validator
         public PagamentoUpdateValidator()
         {
             RuleFor(x => x.Ano).NotEmpty();
-            RuleFor(x => x.TipoPagamento).NotEmpty();
+            RuleFor(x => x.StatusPagamento).NotEmpty();
             RuleFor(x => x.Mes).NotEmpty();
             RuleFor(x => x.Valor).NotEmpty();
         }

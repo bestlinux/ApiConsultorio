@@ -10,7 +10,7 @@ namespace ApiConsultorio.Application.UseCases.Pagamentos.UpdatePagamento
     {
         public int Id { get; set; }
 
-        public int TipoPagamento { get; set; }
+        public int StatusPagamento { get; set; }
 
         public double? Valor { get; set; }
 

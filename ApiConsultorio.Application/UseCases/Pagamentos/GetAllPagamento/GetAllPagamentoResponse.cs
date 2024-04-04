@@ -12,7 +12,7 @@ namespace ApiConsultorio.Application.UseCases.Pagamentos.GetAllPagamento
         public int Id { get; set; }
         public Paciente? Paciente { get; set; }
 
-        public int TipoPagamento { get; set; }
+        public int StatusPagamento { get; set; }
 
         public double? Valor { get; set; }
 
