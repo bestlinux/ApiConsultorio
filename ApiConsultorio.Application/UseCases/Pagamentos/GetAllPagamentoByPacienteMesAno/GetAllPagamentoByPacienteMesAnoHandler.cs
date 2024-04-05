@@ -1,5 +1,6 @@
 ﻿using ApiConsultorio.Application.Services.Notifications;
 using ApiConsultorio.Application.UseCases.Pagamentos.GetAllPagamento;
+using ApiConsultorio.Domain.Entities;
 using ApiConsultorio.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -29,7 +30,13 @@ namespace ApiConsultorio.Application.UseCases.Pagamentos.GetAllPagamentoByPacien
         {
             try
             {
-                var pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPorPacienteMesAno(request.PacienteID, request.Mes, request.Ano);
+                IEnumerable<Pagamento>? enumerable = null;
+                var pagamentos = enumerable;
+
+                if (request.Mes == -1 || request.Mes == 0)
+                    pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPorPacienteAno(request.PacienteID, request.Ano);
+                else
+                    pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPorPacienteMesAno(request.PacienteID, request.Mes, request.Ano);
 
                 return pagamentos.Select(_mapper.Map<GetAllPagamentoByPacienteMesAnoResponse>).ToList();
             }

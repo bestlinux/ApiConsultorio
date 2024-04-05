@@ -12,5 +12,7 @@ namespace ApiConsultorio.Domain.Interfaces
         Task<IEnumerable<Pagamento>> LocalizaTodosPagamentosComPaciente();
 
         Task<IEnumerable<Pagamento>> LocalizaTodosPagamentosPorPacienteMesAno(int idPaciente, int Mes, int Ano);
+
+        Task<IEnumerable<Pagamento>> LocalizaTodosPagamentosPorPacienteAno(int idPaciente, int Ano);
     }
 }

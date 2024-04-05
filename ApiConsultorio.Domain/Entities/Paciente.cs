@@ -45,7 +45,7 @@ namespace ApiConsultorio.Domain.Entities
 
         //MENSAL
         //AVULSO
-        //GRATUITO
+        //SEMANAL
         public string TipoPagamento { get; set; }
 
         public decimal? ValorSessao { get; set; }

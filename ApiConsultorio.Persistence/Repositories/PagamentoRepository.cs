@@ -28,5 +28,13 @@ namespace ApiConsultorio.Persistence.Repositories
                  .Where(b => b.PacienteId == idPaciente && b.Mes == Mes && b.Ano == Ano)
                  .ToListAsync();
         }
+
+        public async Task<IEnumerable<Pagamento>> LocalizaTodosPagamentosPorPacienteAno(int idPaciente, int Ano)
+        {
+            return await _db.Pagamentos.AsNoTracking()
+                 .Include(b => b.Paciente)
+                 .Where(b => b.PacienteId == idPaciente && b.Ano == Ano)
+                 .ToListAsync();
+        }
     }
 }

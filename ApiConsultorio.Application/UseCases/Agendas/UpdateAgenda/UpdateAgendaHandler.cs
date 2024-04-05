@@ -18,18 +18,21 @@ namespace ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAgendaRepository _agendaRepository;
         private readonly IPagamentoRepository _pagamentoRepository;
+        private readonly IPacienteRepository _pacienteRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public UpdateAgendaHandler(IUnitOfWork unitOfWork,
            IAgendaRepository agendaRepository,
            IPagamentoRepository pagamentoRepository,
+           IPacienteRepository pacienteRepository,
            IMapper mapper,
            IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _agendaRepository = agendaRepository;
             _pagamentoRepository = pagamentoRepository;
+            _pacienteRepository = pacienteRepository;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -48,21 +51,35 @@ namespace ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda
                 //Text = "Atendido" Value = "1" />
                 //Text = "Faltou" Value = "2" />
                 //Text = "Desmarcado" Value = "3" />
-                //Text = "Nenhum" Value = "0" />
+                //Text = "Nenhum" Value = "0" />               
 
                 if (request.StatusConsulta == 1 || request.StatusConsulta == 2)
                 {
-                    Pagamento pagamento = new()
+                    // request.TipoConsulta == 3 = primeiro atendimento
+                    if (request.TipoConsulta != 3)
                     {
-                        //PAGO
-                        StatusPagamento = 1,
-                        Ano = request.InicioSessao.Year,
-                        PacienteId = request.PacienteId,
-                        Valor = request.ValorSessao,
-                        Mes = request.InicioSessao.Month
-                    };
-                    await _pagamentoRepository.AddAsync(pagamento);
-                    await _unitOfWork.Commit(cancellationToken);
+                        Pagamento pagamento = new()
+                        {
+                            //ABERTO
+                            StatusPagamento = 2,
+                            Ano = request.InicioSessao.Year,
+                            PacienteId = request.PacienteId,
+                            Valor = request.ValorSessao,
+                            Mes = request.InicioSessao.Month
+                        };
+                        await _pagamentoRepository.AddAsync(pagamento);
+
+                        Paciente paciente = await _pacienteRepository.GetByIdAsync(request.PacienteId);
+
+                        //SEMANAL
+                        if (paciente.TipoPagamento.Equals("3"))
+                        {
+                            paciente.DiaVencimento = request.InicioSessao.Day;
+                            await _pacienteRepository.UpdateAsync(paciente);
+                        }
+
+                        await _unitOfWork.Commit(cancellationToken);
+                    }
                 }
 
                 await _mediator.Publish(new AgendaActionNotification

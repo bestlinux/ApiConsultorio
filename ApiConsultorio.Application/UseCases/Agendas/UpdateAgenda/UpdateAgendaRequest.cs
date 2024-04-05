@@ -15,9 +15,9 @@ namespace ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda
 
         public string? PacienteNome { get; set; }
 
-        //1 - PRIMEIRO ATENDIMENTO
-        //2 - CONSULTA ONLINE
-        //3 - CONSULTA PRESENCIAL
+       //<RadzenRadioButtonListItem Text = "Online" Value="1" />
+       //<RadzenRadioButtonListItem Text = "Presencial" Value="2" />
+       //<RadzenRadioButtonListItem Text = "Primeiro Atendimento" Value="3" />
 
         public int? TipoConsulta { get; set; }
 

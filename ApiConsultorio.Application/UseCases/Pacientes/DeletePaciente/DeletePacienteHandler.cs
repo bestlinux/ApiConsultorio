@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApiConsultorio.Application.UseCases.Pacientes.DeletePaciente
 {
-    public class DeletePacienteHandler : IRequestHandler<DeletePacienteRequest, bool>
+    public class DeletePacienteHandler : IRequestHandler<DeletePacienteRequest, DeletePacienteResponse>
     {
         private readonly IPacienteRepository _pacienteRepository;
         private readonly IMapper _mapper;
@@ -27,13 +27,17 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.DeletePaciente
             _mediator = mediator;
         }
 
-        public async Task<bool> Handle(DeletePacienteRequest request, CancellationToken cancellationToken)
+        public async Task<DeletePacienteResponse> Handle(DeletePacienteRequest request, CancellationToken cancellationToken)
         {
+            DeletePacienteResponse deletePacienteResponse = new();
+
             try
             {
+          
                 await _pacienteRepository.RemoveAsync(request.Id);
+                deletePacienteResponse.Success = true;
 
-                return true;
+                return deletePacienteResponse;
             }
             catch (Exception ex)
             {
@@ -42,7 +46,19 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.DeletePaciente
                     Error = "Ocorreu um erro ao excluir o pacientes de id " + request.Id,
                     Stack = ex.StackTrace,
                 }, cancellationToken);
-                return false;
+                deletePacienteResponse.Success = false;
+                ErrorDto errorDto = new();
+                List<ErrorItem> errorsList = new();
+                ErrorItem errorItem = new()
+                {
+                    Message = ex.InnerException.Message
+                };
+                errorsList.Add(errorItem);
+                errorDto.Errors = errorsList;
+                errorDto.Title = "Erro ao excluir o paciente " + request.Id;
+                deletePacienteResponse.Error = errorDto;
+
+                return deletePacienteResponse;
             }
         }
     }

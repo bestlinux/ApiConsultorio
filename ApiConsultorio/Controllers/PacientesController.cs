@@ -75,14 +75,20 @@ namespace ApiConsultorio.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Remove(int id, CancellationToken cancellationToken)
+        public async Task<ActionResult<DeletePacienteResponse>> Remove(int id, CancellationToken cancellationToken)
         {
             DeletePacienteRequest pacienteRequest = new()
             {
                 Id = id
             };
             var result = await _mediator.Send(pacienteRequest, cancellationToken);
-            return Ok(result);
+
+            if ((bool)!result.Success)
+            {
+                return BadRequest(result.Error);
+            }
+            else
+                return Ok(result);
         }
 
         [HttpPut]
