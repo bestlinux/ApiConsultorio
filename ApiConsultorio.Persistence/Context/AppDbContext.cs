@@ -46,7 +46,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Paciente>().Property(p => p.ValorSessao).HasPrecision(10, 2);
         builder.Entity<Paciente>().Property(p => p.Ativo).IsRequired();
 
-		builder.Entity<Pagamento>().HasKey(t => t.Id);
+        builder.Entity<Pagamento>().HasKey(t => t.Id);
 
         builder.Entity<Agenda>().HasKey(t => t.Id);
 

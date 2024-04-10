@@ -56,5 +56,8 @@ namespace ApiConsultorio.Domain.Entities
 
         public int Ativo { get; set; }
 
+        [Column(TypeName = "ntext")]
+        public string? Prontuario { get; set; }
+
     }
 }
