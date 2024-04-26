@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiConsultorio.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     public class PagamentosController : ControllerBase
     {
@@ -81,7 +81,7 @@ namespace ApiConsultorio.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UpdatePagamentoResponse>> UpdatePacienteAsync(UpdatePagamentoRequest updatePagamento, CancellationToken cancellationToken)
+        public async Task<ActionResult<UpdatePagamentoResponse>> UpdatePagamentoAsync(UpdatePagamentoRequest updatePagamento, CancellationToken cancellationToken)
         {
             var validator = new PagamentoUpdateValidator();
             var validationResult = await validator.ValidateAsync(updatePagamento, cancellationToken);

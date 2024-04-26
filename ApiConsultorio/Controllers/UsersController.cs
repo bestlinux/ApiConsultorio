@@ -73,8 +73,8 @@ public class UsersController : ControllerBase
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        // tempo de expiração do token: 2 horas
-        var expiration = DateTime.UtcNow.AddHours(2);
+        // tempo de expiração do token: 3 horas
+        var expiration = DateTime.Now.AddHours(3);
 
         JwtSecurityToken token = new JwtSecurityToken(
            issuer: null,

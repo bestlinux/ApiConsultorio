@@ -16,16 +16,19 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPacienteRepository _pacienteRepository;
+        private readonly IProntuarioRepository _prontuarioRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public CreatePacienteHandler(IUnitOfWork unitOfWork,
         IPacienteRepository pacienteRepository,
+        IProntuarioRepository prontuarioRepository,
         IMapper mapper,
         IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _pacienteRepository = pacienteRepository;
+            _prontuarioRepository = prontuarioRepository;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -43,6 +46,54 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
                 await _mediator.Publish(new PacienteActionNotification
                 {
                     Nome = request.Nome,
+                    Action = ActionNotification.Created
+                }, cancellationToken);
+
+                var pronturarioQueixa = new Prontuario
+                {
+                    Pagina = "Queixa",
+                    PacienteId = paciente.Id,
+                    Conteudo = String.Empty
+                };
+
+                await _prontuarioRepository.AddAsync(pronturarioQueixa);
+                await _unitOfWork.Commit(cancellationToken);
+
+                await _mediator.Publish(new ProntuarioActionNotification
+                {
+                    Pagina = "Queixa",
+                    Action = ActionNotification.Created
+                }, cancellationToken);
+
+                var pronturarioEntrevista = new Prontuario
+                {
+                    Pagina = "Entrevista",
+                    PacienteId = paciente.Id,
+                    Conteudo = String.Empty
+                };
+
+                await _prontuarioRepository.AddAsync(pronturarioEntrevista);
+                await _unitOfWork.Commit(cancellationToken);
+
+                await _mediator.Publish(new ProntuarioActionNotification
+                {
+                    Pagina = "Entrevista",
+                    Action = ActionNotification.Created
+                }, cancellationToken);
+
+                var pronturarioSessoes = new Prontuario
+                {
+                    Pagina = "Sessões",
+                    PacienteId = paciente.Id,
+                    Conteudo = String.Empty
+                };
+
+                await _prontuarioRepository.AddAsync(pronturarioSessoes);
+                await _unitOfWork.Commit(cancellationToken);
+
+                await _mediator.Publish(new ProntuarioActionNotification
+                {
+                    Pagina = "Sessões",
                     Action = ActionNotification.Created
                 }, cancellationToken);
 

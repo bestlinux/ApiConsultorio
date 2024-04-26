@@ -1,23 +1,19 @@
-﻿using ApiConsultorio.Domain.Common;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiConsultorio.Domain.Entities
+namespace ApiConsultorio.Application.UseCases.Prontuarios.UpdateProntuario
 {
-    public class Prontuario : Entity
+    public class UpdateProntuarioRequest : IRequest<UpdateProntuarioResponse>
     {
-        public Paciente? Paciente { get; set; }
-
+        public int Id { get; set; }
         public int? PacienteId { get; set; }
 
         public string? Pagina { get; set; }
 
-        [Column(TypeName = "ntext")]
         public string? Conteudo { get; set; }
-
     }
 }

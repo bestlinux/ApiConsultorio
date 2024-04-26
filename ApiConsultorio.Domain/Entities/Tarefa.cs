@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace ApiConsultorio.Domain.Entities
 {
-    public class Prontuario : Entity
+    public class Tarefa : Entity
     {
         public Paciente? Paciente { get; set; }
 
         public int? PacienteId { get; set; }
 
-        public string? Pagina { get; set; }
+        public string? PacienteNome { get; set; }
 
-        [Column(TypeName = "ntext")]
-        public string? Conteudo { get; set; }
+        [Column(TypeName = "nvarchar(MAX)")]
+        public string? Descricao { get; set; }
+
+        public int? Status { get; set; }
 
     }
 }

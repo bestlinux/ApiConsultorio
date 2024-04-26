@@ -19,7 +19,7 @@ using System.Threading;
 namespace ApiConsultorio.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
 
     public class PacientesController : ControllerBase

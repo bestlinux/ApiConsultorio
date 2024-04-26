@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace ApiConsultorio.Application.Services.Notifications
 {
-    public class PagamentoActionNotification : INotification
+    public class ProntuarioActionNotification : INotification
     {
         public int? PacienteId { get; set; }
+
+        public string? Pagina { get; set; }
         public ActionNotification Action { get; set; }
     }
 }

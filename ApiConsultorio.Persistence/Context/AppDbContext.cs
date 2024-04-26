@@ -18,6 +18,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Agenda> Agendas { get; set; }
 
+    public DbSet<Aviso> Avisos { get; set; }
+
+    public DbSet<Tarefa> Tarefas { get; set; }
+
+    public DbSet<Prontuario> Prontuarios { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
 	{
 		base.OnModelCreating(builder);
@@ -48,7 +54,13 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         builder.Entity<Pagamento>().HasKey(t => t.Id);
 
+        builder.Entity<Prontuario>().HasKey(t => t.Id);
+
         builder.Entity<Agenda>().HasKey(t => t.Id);
+
+        builder.Entity<Aviso>().HasKey(t => t.Id);
+
+        builder.Entity<Tarefa>().HasKey(t => t.Id);
 
         builder.Entity<Category>().HasKey(t => t.Id);
 		builder.Entity<Category>().HasMany(c => c.Mangas)
