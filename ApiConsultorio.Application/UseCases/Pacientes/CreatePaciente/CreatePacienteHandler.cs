@@ -1,5 +1,4 @@
 ﻿using ApiConsultorio.Application.Services.Notifications;
-using ApiConsultorio.Application.UseCases.Categorys.CreateCategory;
 using ApiConsultorio.Domain.Entities;
 using ApiConsultorio.Domain.Interfaces;
 using AutoMapper;

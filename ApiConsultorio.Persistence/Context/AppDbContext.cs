@@ -9,16 +9,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     { }
-    public DbSet<Category> Categorias { get; set; }
-    public DbSet<Manga> Mangas { get; set; }
 
 	public DbSet<Paciente> Pacientes { get; set; }
 
     public DbSet<Pagamento> Pagamentos { get; set; }
 
     public DbSet<Agenda> Agendas { get; set; }
-
-    public DbSet<Aviso> Avisos { get; set; }
 
     public DbSet<Tarefa> Tarefas { get; set; }
 
@@ -58,38 +54,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         builder.Entity<Agenda>().HasKey(t => t.Id);
 
-        builder.Entity<Aviso>().HasKey(t => t.Id);
-
         builder.Entity<Tarefa>().HasKey(t => t.Id);
-
-        builder.Entity<Category>().HasKey(t => t.Id);
-		builder.Entity<Category>().HasMany(c => c.Mangas)
-			.WithOne(b => b.Categoria)
-			.HasForeignKey(b => b.CategoriaId);
-
-		//define os dados iniciais para a entidade Categoria
-		builder.Entity<Category>().HasData(
-		   new Category(1, "Aventura", "oi oi-aperture"),
-		   new Category(2, "Ação", "oi oi-fire"),
-		   new Category(3, "Drama", "oi oi-cloudy"),
-		   new Category(4, "Romance", "oi oi-layers"),
-		   new Category(5, "Ficção", "oi oi-tablet"),
-           new Category(6, "asasa", "oi oi-tablet")
-         );
-
-		builder.Entity<Manga>().HasKey(t => t.Id);
-
-		//configura o tamanho máximo das propriedades que irão gerar colunas com tamanho correspondentes 
-		builder.Entity<Manga>().Property(p => p.Titulo).HasMaxLength(100).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Descricao).HasMaxLength(200).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Autor).HasMaxLength(200).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Editora).HasMaxLength(100).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Formato).HasMaxLength(100).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Cor).HasMaxLength(50).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Origem).HasMaxLength(100).IsRequired();
-		builder.Entity<Manga>().Property(p => p.Imagem).HasMaxLength(250).IsRequired();
-
-		builder.Entity<Manga>().Property(p => p.Preco).HasPrecision(10, 2);
 
 		// Define o comportamento de exclusão de todas as chaves estrangeiras
 		// no modelo de dados como ClientSetNull, para que a exclusão de uma

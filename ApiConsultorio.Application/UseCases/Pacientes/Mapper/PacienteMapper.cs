@@ -1,5 +1,4 @@
-﻿using ApiConsultorio.Application.UseCases.Categorys.UpdateCategory;
-using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
+﻿using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.GetByIdPaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente;

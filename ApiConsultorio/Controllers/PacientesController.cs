@@ -1,7 +1,4 @@
 ﻿using ApiConsultorio.Application.Shared.Validator;
-using ApiConsultorio.Application.UseCases.Categorys.CreateCategory;
-using ApiConsultorio.Application.UseCases.Categorys.GetAllCategory;
-using ApiConsultorio.Application.UseCases.Categorys.UpdateCategory;
 using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.DeletePaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente;

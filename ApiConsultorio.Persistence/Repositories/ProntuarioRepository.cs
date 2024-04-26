@@ -20,6 +20,7 @@ namespace ApiConsultorio.Persistence.Repositories
             return await _db.Prontuarios.AsNoTracking()
             .Include(b => b.Paciente)
                 .Where(b => b.PacienteId == idPaciente)
+                .OrderBy(b => b.Pagina)
                 .ToListAsync();
         }
     }

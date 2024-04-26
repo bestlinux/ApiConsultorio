@@ -4,6 +4,7 @@ using ApiConsultorio.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiConsultorio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240426201037_ExclusaoAvisos")]
+    partial class ExclusaoAvisos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,6 +124,142 @@ namespace ApiConsultorio.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("ApiConsultorio.Domain.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IconCSS")
+                        .IsRequired()
+                        .HasMaxLength(123)
+                        .HasColumnType("nvarchar(123)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(125)
+                        .HasColumnType("nvarchar(125)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IconCSS = "oi oi-aperture",
+                            Nome = "Aventura"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IconCSS = "oi oi-fire",
+                            Nome = "Ação"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IconCSS = "oi oi-cloudy",
+                            Nome = "Drama"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IconCSS = "oi oi-layers",
+                            Nome = "Romance"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IconCSS = "oi oi-tablet",
+                            Nome = "Ficção"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IconCSS = "oi oi-tablet",
+                            Nome = "asasa"
+                        });
+                });
+
+            modelBuilder.Entity("ApiConsultorio.Domain.Entities.Manga", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Autor")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Editora")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Estoque")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Formato")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Imagem")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("NomeCategoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Origem")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Paginas")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Preco")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime>("Publicacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.ToTable("Mangas");
                 });
 
             modelBuilder.Entity("ApiConsultorio.Domain.Entities.Paciente", b =>
@@ -430,6 +569,16 @@ namespace ApiConsultorio.Migrations
                     b.Navigation("Paciente");
                 });
 
+            modelBuilder.Entity("ApiConsultorio.Domain.Entities.Manga", b =>
+                {
+                    b.HasOne("ApiConsultorio.Domain.Entities.Category", "Categoria")
+                        .WithMany("Mangas")
+                        .HasForeignKey("CategoriaId")
+                        .IsRequired();
+
+                    b.Navigation("Categoria");
+                });
+
             modelBuilder.Entity("ApiConsultorio.Domain.Entities.Pagamento", b =>
                 {
                     b.HasOne("ApiConsultorio.Domain.Entities.Paciente", "Paciente")
@@ -500,6 +649,11 @@ namespace ApiConsultorio.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ApiConsultorio.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Mangas");
                 });
 #pragma warning restore 612, 618
         }

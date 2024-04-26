@@ -1,5 +1,4 @@
 ﻿using ApiConsultorio.Application.Services.Notifications;
-using ApiConsultorio.Application.UseCases.Categorys.GetAllCategory;
 using ApiConsultorio.Domain.Interfaces;
 using AutoMapper;
 using MediatR;

@@ -1,5 +1,4 @@
-﻿using ApiConsultorio.Application.UseCases.Categorys.GetAllCategory;
-using ApiConsultorio.Domain.Interfaces;
+﻿using ApiConsultorio.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 using System;

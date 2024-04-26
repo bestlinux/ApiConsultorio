@@ -22,12 +22,9 @@ namespace ApiConsultorio.Persistence.Services
                      options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ApiConsultorio")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-			services.AddScoped<IMangaRepository, MangaRepository>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
             services.AddScoped<IAgendaRepository, AgendaRepository>();
-            services.AddScoped<IAvisoRepository, AvisoRepository>();
             services.AddScoped<IProntuarioRepository, ProntuarioRepository>();
         }
     }

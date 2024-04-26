@@ -1,5 +1,4 @@
-﻿using ApiConsultorio.Application.UseCases.Categorys.CreateCategory;
-using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
+﻿using ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente;
 using FluentValidation;
 using System;

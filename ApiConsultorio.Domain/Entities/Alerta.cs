@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace ApiConsultorio.Domain.Entities
 {
-    public class Calendario : Entity
+    public class Alerta
     {
-        public string Nome { get; set; }
+        public string? Descricao { get; set; }
 
-        public string Horario { get; set; }
-
+        //1 - ANIVERSARIO
+        //2 - PAGAMENTOS
+        public int Categoria { get; set; }
     }
 }
