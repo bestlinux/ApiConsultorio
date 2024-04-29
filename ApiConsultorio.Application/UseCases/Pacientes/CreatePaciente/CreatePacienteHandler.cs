@@ -16,18 +16,21 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPacienteRepository _pacienteRepository;
         private readonly IProntuarioRepository _prontuarioRepository;
+        private readonly IAgendaRepository _agendaRepository;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public CreatePacienteHandler(IUnitOfWork unitOfWork,
         IPacienteRepository pacienteRepository,
         IProntuarioRepository prontuarioRepository,
+        IAgendaRepository agendaRepository,
         IMapper mapper,
         IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _pacienteRepository = pacienteRepository;
             _prontuarioRepository = prontuarioRepository;
+            _agendaRepository = agendaRepository;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -48,6 +51,7 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
                     Action = ActionNotification.Created
                 }, cancellationToken);
 
+                //PRONTUARIO
                 var pronturarioQueixa = new Prontuario
                 {
                     Pagina = "Queixa",
@@ -95,6 +99,25 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
                     Pagina = "Sessões",
                     Action = ActionNotification.Created
                 }, cancellationToken);
+
+                DateTime inicioSessaoAniversario = new(paciente.DataNascimento.Year, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 09, 00, 00);
+                DateTime fimSessaoAniversario = new(paciente.DataNascimento.Year, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 18, 00, 00);
+
+                //REGISTRAR ANIVERSARIO NA AGENDA
+                var agendaAniversario = new Agenda
+                {
+
+                    InicioSessao = inicioSessaoAniversario,
+                    FimSessao = fimSessaoAniversario,
+                    PacienteId = paciente.Id,
+                    TipoConsulta = 4,
+                    StatusConsulta = 0,
+                    ValorSessao = 0,
+                    PacienteNome = paciente.Nome
+                };
+
+                await _agendaRepository.AddAsync(agendaAniversario);
+                await _unitOfWork.Commit(cancellationToken);
 
                 return _mapper.Map<CreatePacienteResponse>(paciente);
             }

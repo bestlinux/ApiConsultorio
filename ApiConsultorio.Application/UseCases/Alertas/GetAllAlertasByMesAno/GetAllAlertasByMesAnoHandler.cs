@@ -1,5 +1,7 @@
-﻿using ApiConsultorio.Application.UseCases.Alertas.GetAllAlertasByMes;
+﻿using ApiConsultorio.Application.Services.Notifications;
+using ApiConsultorio.Application.UseCases.Alertas.GetAllAlertasByMes;
 using ApiConsultorio.Application.UseCases.Pagamentos.GetAllPagamentoByPacienteMesAno;
+using ApiConsultorio.Domain.Entities;
 using ApiConsultorio.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
@@ -29,9 +31,47 @@ namespace ApiConsultorio.Application.UseCases.Alertas.GetAllAlertasByMesAno
             _pacienteRepository = pacienteRepository;
         }
 
-        public Task<IReadOnlyCollection<GetAllAlertasByMesAnoResponse>> Handle(GetAllAlertasByMesAnoRequest request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<GetAllAlertasByMesAnoResponse>> Handle(GetAllAlertasByMesAnoRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IList<Alerta> alertas = new List<Alerta>();
+     
+                IEnumerable<Pagamento>? pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPendentesMesAno(request.Mes, request.Ano);
+
+                foreach (var pagamento in pagamentos)
+                {
+                    var entityAlerta = new Alerta
+                    {
+                        Descricao = string.Concat("Paciente ", pagamento.Paciente?.Nome, " possui pagamento pendente para o mês ", pagamento.Mes, " no valor de R$ ", pagamento.Valor),
+                        Categoria = 2
+                    };
+                    alertas.Add(entityAlerta);
+                }
+
+                IEnumerable<Paciente>? pacientes = await _pacienteRepository.LocalizaAniversariantes(request.Mes);
+
+                foreach (var paciente in pacientes)
+                {
+                    var entityAlerta = new Alerta
+                    {
+                        Descricao = string.Concat("Paciente ", paciente?.Nome, " faz aniversário no dia ", paciente?.DataNascimento.Day, " deste mês(", paciente?.DataNascimento.ToString("MMMM"),") ! Não esqueça os parabéns !"),
+                        Categoria = 1
+                    };
+                    alertas.Add(entityAlerta);
+                }
+
+                return alertas.Select(_mapper.Map<GetAllAlertasByMesAnoResponse>).ToList();
+            }
+            catch (Exception ex)
+            {
+                await _mediator.Publish(new ErrorNotification
+                {
+                    Error = "Ocorreu um erro ao buscar os alertas do mes",
+                    Stack = ex.StackTrace,
+                }, cancellationToken);
+                return null;
+            }
         }
     }
 }
