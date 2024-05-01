@@ -1,12 +1,11 @@
+version: "3"
 networks:
   event_localhost:
 services: 
   consultoriopsico:
         container_name: consultoriopsicoapi      
         image: bestlinux/consultoriopsico-api
-        build: 
-          context: .
-          dockerfile: Dockerfile
+        restart: always
         depends_on:
           - "sql"
         ports:
@@ -17,9 +16,11 @@ services:
           ASPNETCORE_HTTPS_PORT: "8001"
           ASPNETCORE_ENVIRONMENT: Development
           Kestrel:Certificates:Default:Path: /root/.aspnet/https/ApiConsultorio.pfx
-          Kestrel:Certificates:Default:Password: 20032014@        
+          Kestrel:Certificates:Default:Password: 20032014@
+        
   sql:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    restart: always
     hostname: "sql_server2022-psico"
     container_name: sql_server2022-psico
     ports: # not actually needed, because the two services are on the same network
@@ -31,9 +32,7 @@ services:
   consultoriopsico-ui:
     container_name: consultoriopsico-ui
     image: bestlinux/consultoriopsico-ui
-    build:
-      context: C:\Users\bestl\OneDrive\projetocida\FrontEndConsultorio\ConsultorioUI
-      dockerfile: C:\Users\bestl\OneDrive\projetocida\FrontEndConsultorio\ConsultorioUI\Dockerfile
+    restart: always
     environment:
       NODE_ENV: production
     ports:
