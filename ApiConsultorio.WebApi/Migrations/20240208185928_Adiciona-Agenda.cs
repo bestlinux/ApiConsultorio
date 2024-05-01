@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ApiConsultorio.Migrations
+namespace ApiConsultorio.WebApi.Migrations
 {
     /// <inheritdoc />
     public partial class AdicionaAgenda : Migration

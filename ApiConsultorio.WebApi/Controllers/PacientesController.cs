@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
-namespace ApiConsultorio.Controllers
+namespace ApiConsultorio.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = "Bearer")]

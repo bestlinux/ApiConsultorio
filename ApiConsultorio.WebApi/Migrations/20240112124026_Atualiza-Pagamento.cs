@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ApiConsultorio.Migrations
+namespace ApiConsultorio.WebApi.Migrations
 {
     /// <inheritdoc />
     public partial class AtualizaPagamento : Migration

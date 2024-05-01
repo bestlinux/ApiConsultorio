@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiConsultorio.Controllers
+namespace ApiConsultorio.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = "Bearer")]

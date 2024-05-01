@@ -5,24 +5,18 @@
 namespace ApiConsultorio.WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class AtualizaPagamento3 : Migration
+    public partial class ApiConsultorio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "TipoPagamento",
-                table: "Pagamentos",
-                newName: "StatusPagamento");
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "StatusPagamento",
-                table: "Pagamentos",
-                newName: "TipoPagamento");
+
         }
     }
 }

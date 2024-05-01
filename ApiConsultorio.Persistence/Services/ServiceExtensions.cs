@@ -19,7 +19,7 @@ namespace ApiConsultorio.Persistence.Services
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options =>
-                     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ApiConsultorio")));
+                     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ApiConsultorio.WebApi")));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();

@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ApiMangas.Controllers;
+namespace ApiConsultorio.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ApiConsultorio.Migrations
+namespace ApiConsultorio.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240107150134_Atualiza-Paciente5")]

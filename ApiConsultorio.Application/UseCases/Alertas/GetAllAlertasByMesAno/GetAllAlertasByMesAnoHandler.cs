@@ -55,7 +55,7 @@ namespace ApiConsultorio.Application.UseCases.Alertas.GetAllAlertasByMesAno
                 {
                     var entityAlerta = new Alerta
                     {
-                        Descricao = string.Concat("Paciente ", paciente?.Nome, " faz aniversário no dia ", paciente?.DataNascimento.Day, " deste mês(", paciente?.DataNascimento.ToString("MMMM"),") ! Não esqueça os parabéns !"),
+                        Descricao = string.Concat("Paciente ", paciente?.Nome, " faz aniversário no dia ", paciente?.DataNascimento.Day, " deste mês ! Não esqueça os parabéns !"),
                         Categoria = 1
                     };
                     alertas.Add(entityAlerta);
