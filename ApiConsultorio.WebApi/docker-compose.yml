@@ -1,0 +1,28 @@
+services: 
+  projetohq:
+        container_name: projetohqwebapi
+        build: 
+          context: .
+          dockerfile: ProjetoHQApi.WebApi/Dockerfile
+        ports:
+        - "8000:80"
+        - "8001:443"
+        environment:
+          ASPNETCORE_URLS: "https://+;http://+"
+          ASPNETCORE_HTTPS_PORT: "8001"
+          ASPNETCORE_ENVIRONMENT: Development
+          Kestrel:Certificates:Default:Path: /root/.aspnet/https/ProjetoHQWebApi.pfx
+          Kestrel:Certificates:Default:Password: 20032014@
+        volumes:
+          - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+          - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/          
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports: # not actually needed, because the two services are on the same network
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=20032014Amor@@
+    volumes:
+      - C:\Users\bestl\OneDrive\PROJETOHQATUAL\SQLServer:/var/opt/mssql/data

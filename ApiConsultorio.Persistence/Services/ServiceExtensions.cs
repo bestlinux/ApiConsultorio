@@ -20,12 +20,14 @@ namespace ApiConsultorio.Persistence.Services
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options =>
                      options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ApiConsultorio")));
-
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
             services.AddScoped<IAgendaRepository, AgendaRepository>();
             services.AddScoped<IProntuarioRepository, ProntuarioRepository>();
+
+
         }
     }
 }
