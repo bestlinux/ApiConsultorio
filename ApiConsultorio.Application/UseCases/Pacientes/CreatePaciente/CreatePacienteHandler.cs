@@ -100,24 +100,28 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
                     Action = ActionNotification.Created
                 }, cancellationToken);
 
-                DateTime inicioSessaoAniversario = new(paciente.DataNascimento.Year, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 09, 00, 00);
-                DateTime fimSessaoAniversario = new(paciente.DataNascimento.Year, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 18, 00, 00);
-
-                //REGISTRAR ANIVERSARIO NA AGENDA
-                var agendaAniversario = new Agenda
+                for (int i = 2024; i < 2084; i++)
                 {
+                    DateTime inicioSessaoAniversario = new(i, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 09, 00, 00);
+                    DateTime fimSessaoAniversario = new(i, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 18, 00, 00);
 
-                    InicioSessao = inicioSessaoAniversario,
-                    FimSessao = fimSessaoAniversario,
-                    PacienteId = paciente.Id,
-                    TipoConsulta = 4,
-                    StatusConsulta = 0,
-                    ValorSessao = 0,
-                    PacienteNome = paciente.Nome
-                };
+                    //REGISTRAR ANIVERSARIO NA AGENDA
+                    var agendaAniversario = new Agenda
+                    {
 
-                await _agendaRepository.AddAsync(agendaAniversario);
-                await _unitOfWork.Commit(cancellationToken);
+                        InicioSessao = inicioSessaoAniversario,
+                        FimSessao = fimSessaoAniversario,
+                        PacienteId = paciente.Id,
+                        TipoConsulta = 4,
+                        StatusConsulta = 0,
+                        ValorSessao = 0,
+                        PacienteNome = paciente.Nome
+                    };
+
+                    await _agendaRepository.AddAsync(agendaAniversario);
+                    await _unitOfWork.Commit(cancellationToken);
+                }               
+               
 
                 return _mapper.Map<CreatePacienteResponse>(paciente);
             }

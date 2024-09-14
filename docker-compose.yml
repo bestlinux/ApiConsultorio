@@ -28,6 +28,8 @@ services:
     environment:
       - ACCEPT_EULA=y
       - SA_PASSWORD=20032014Amor@@
+    volumes:
+      - C:\Users\bestl\OneDrive\projetocida\SQLServer:/var/opt/mssql/data
       
   consultoriopsico-ui:
     container_name: consultoriopsico-ui

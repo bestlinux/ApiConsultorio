@@ -11,10 +11,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ApiConsultorio.Persistence.Repositories
 {
-    public class PacienteRepository : Repository<Paciente>, IPacienteRepository
+    public class PacienteRepository(AppDbContext context) : Repository<Paciente>(context), IPacienteRepository
     {
-        public PacienteRepository(AppDbContext context) : base(context) { }
-
         public async Task<IEnumerable<Paciente>> LocalizaAniversariantes(int Mes)
         {
             return await _db.Pacientes.AsNoTracking()

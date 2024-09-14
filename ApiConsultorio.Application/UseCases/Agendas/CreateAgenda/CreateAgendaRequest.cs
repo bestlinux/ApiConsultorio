@@ -30,5 +30,9 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
         public DateTime FimSessao { get; set; }
 
         public double? ValorSessao { get; set; }
+
+        public int TipoRecorrencia { get; set; }
+
+        public int NumeroRecorrencias { get; set; }
     }
 }

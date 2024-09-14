@@ -34,11 +34,84 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
         {
             try
             {
+
+                //REGRA DE REPETICAO DE EVENTO
+                //TIPO REPETICAO = 1 - SEMANAL 2 - MENSAL - 3 - QUINZENAL
+                //QUANTIDADE DE REPETICAO
+                //TRANSFORMAR O PAGAMENTO ORBIGATORIO QUANDO FOR ATENDIDO OU FALTOU
+
+                //INSERE A PRIMEIRA OCORRENCIA
                 var agenda = _mapper.Map<Agenda>(request);
 
                 await _agendaRepository.AddAsync(agenda);
 
                 await _unitOfWork.Commit(cancellationToken);
+
+                switch (request.TipoRecorrencia)
+                {
+                    //SEMANAL
+                    case 1:
+                        //CALCULA A DATA DA PROXIMA
+                        DateTime inicioSessaoSemanal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day + 7, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
+                        DateTime fimSessaoSemanal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day + 7, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+
+                        //INSERE AS DEMAIS
+                        for (int i = 1; i < request.NumeroRecorrencias; i++)
+                        {
+                            var agendaRepeticao = new Agenda
+                            {
+                                InicioSessao = inicioSessaoSemanal,
+                                FimSessao = fimSessaoSemanal,
+                                PacienteId = request.PacienteId,
+                                PacienteNome = request.PacienteNome,
+                                StatusConsulta = request.StatusConsulta,
+                                TipoConsulta = request.TipoConsulta,
+                                ValorSessao = request.ValorSessao,
+                            };
+                            //COMMIT DAS REPETICOES
+                            await _agendaRepository.AddAsync(agendaRepeticao);
+                            await _unitOfWork.Commit(cancellationToken);
+
+                            //AJUSTA AS PROXIMAS DATAS DAS SESSOES
+                            inicioSessaoSemanal = inicioSessaoSemanal.AddDays(7);
+                            fimSessaoSemanal = fimSessaoSemanal.AddDays(7);
+                        }
+
+                        await _unitOfWork.Commit(cancellationToken);
+
+                        break;
+
+                    //QUINZENAL
+                    case 2:
+                        //CALCULA A DATA DA PROXIMA
+                        DateTime inicioSessaoQuinzenal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day + 14, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
+                        DateTime fimSessaoQuinzenal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day + 14, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+
+                        //INSERE AS DEMAIS
+                        for (int i = 1; i < request.NumeroRecorrencias; i++)
+                        {
+                            var agendaRepeticao = new Agenda
+                            {
+                                InicioSessao = inicioSessaoQuinzenal,
+                                FimSessao = fimSessaoQuinzenal,
+                                PacienteId = request.PacienteId,
+                                PacienteNome = request.PacienteNome,
+                                StatusConsulta = request.StatusConsulta,
+                                TipoConsulta = request.TipoConsulta,
+                                ValorSessao = request.ValorSessao,
+                            };
+                            //COMMIT DAS REPETICOES
+                            await _agendaRepository.AddAsync(agendaRepeticao);
+                            await _unitOfWork.Commit(cancellationToken);
+
+                            //AJUSTA AS PROXIMAS DATAS DAS SESSOES
+                            inicioSessaoQuinzenal = inicioSessaoQuinzenal.AddDays(14);
+                            fimSessaoQuinzenal = fimSessaoQuinzenal.AddDays(14);
+                        }
+
+                        await _unitOfWork.Commit(cancellationToken);
+                        break;
+                }
 
                 await _mediator.Publish(new AgendaActionNotification
                 {
@@ -47,6 +120,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                 }, cancellationToken);
 
                 return _mapper.Map<CreateAgendaResponse>(agenda);
+
             }
             catch (Exception ex)
             {
@@ -57,6 +131,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                 }, cancellationToken);
                 return null;
             }
+            return null;
         }
     }
 }

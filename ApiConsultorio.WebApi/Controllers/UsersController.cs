@@ -74,7 +74,7 @@ public class UsersController : ControllerBase
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         // tempo de expiração do token: 3 horas
-        var expiration = DateTime.Now.AddHours(3);
+        var expiration = DateTime.Now.AddHours(24);
 
         JwtSecurityToken token = new JwtSecurityToken(
            issuer: null,

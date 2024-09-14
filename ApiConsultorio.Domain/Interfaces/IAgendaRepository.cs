@@ -9,5 +9,10 @@ namespace ApiConsultorio.Domain.Interfaces
 {
     public interface IAgendaRepository : IRepository<Agenda>
     {
+        Task DeletaTodosAgendamentosPorTipoConsulta(int TipoConsulta);
+
+        Task DeletaTodosAgendamentosPorRecorrencia(int PacienteId);
+
+        Task<IEnumerable<Agenda>> LocalizaAniversarios(int idPaciente, int tipoConsulta);
     }
 }

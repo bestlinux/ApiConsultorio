@@ -35,19 +35,19 @@ namespace ApiConsultorio.Application.UseCases.Alertas.GetAllAlertasByMesAno
         {
             try
             {
-                IList<Alerta> alertas = new List<Alerta>();
+                List<Alerta> alertas = [];
      
-                IEnumerable<Pagamento>? pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPendentesMesAno(request.Mes, request.Ano);
+                //IEnumerable<Pagamento>? pagamentos = await _pagamentoRepository.LocalizaTodosPagamentosPendentesMesAno(request.Mes, request.Ano);
 
-                foreach (var pagamento in pagamentos)
-                {
-                    var entityAlerta = new Alerta
-                    {
-                        Descricao = string.Concat("Paciente ", pagamento.Paciente?.Nome, " possui pagamento pendente para o mês ", pagamento.Mes, " no valor de R$ ", pagamento.Valor),
-                        Categoria = 2
-                    };
-                    alertas.Add(entityAlerta);
-                }
+                //foreach (var pagamento in pagamentos)
+                //{
+                //    var entityAlerta = new Alerta
+                //    {
+                //        Descricao = string.Concat("Paciente ", pagamento.Paciente?.Nome, " possui pagamento pendente para o mês ", pagamento.Mes, " no valor de R$ ", pagamento.Valor),
+                //        Categoria = 2
+                //    };
+                //    alertas.Add(entityAlerta);
+                //}
 
                 IEnumerable<Paciente>? pacientes = await _pacienteRepository.LocalizaAniversariantes(request.Mes);
 

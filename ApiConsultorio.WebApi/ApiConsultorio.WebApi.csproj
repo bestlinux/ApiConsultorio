@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApiConsultorio.Infra\ApiConsultorio.Infra.csproj" />
     <ProjectReference Include="..\ApiConsultorio.Persistence\ApiConsultorio.Persistence.csproj" />
   </ItemGroup>
 
