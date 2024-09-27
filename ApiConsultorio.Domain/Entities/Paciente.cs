@@ -15,18 +15,18 @@ namespace ApiConsultorio.Domain.Entities
     {
         public Paciente() { }
 
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
-        public string Telefone { get; set; }
+        public string? Telefone { get; set; }
 
-        public DateTime DataNascimento { get; set; }
-        public int Sexo { get; set; }
+        public DateTime? DataNascimento { get; set; }
+        public int? Sexo { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string CPF { get; set; }
+        public string? CPF { get; set; }
 
-        public int Pais { get; set; }
+        public int? Pais { get; set; }
 
         //ENDERECO
         public string? CEP { get; set; }
@@ -46,7 +46,7 @@ namespace ApiConsultorio.Domain.Entities
         //MENSAL
         //AVULSO
         //SEMANAL
-        public string TipoPagamento { get; set; }
+        public string? TipoPagamento { get; set; }
 
         public decimal? ValorSessao { get; set; }
 
@@ -54,7 +54,7 @@ namespace ApiConsultorio.Domain.Entities
 
         public int? StatusPagamento { get; set; }
 
-        public int Ativo { get; set; }
+        public int? Ativo { get; set; }
 
     }
 }

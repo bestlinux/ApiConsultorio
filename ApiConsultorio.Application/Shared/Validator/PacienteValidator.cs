@@ -13,14 +13,6 @@ namespace ApiConsultorio.Application.Shared.Validator
     {
         public PacienteCreateValidator()
         {
-            RuleFor(x => x.Nome).NotEmpty();
-            RuleFor(x => x.CPF).NotEmpty();
-            RuleFor(x => x.Telefone).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty().MinimumLength(3).MaximumLength(50);
-            RuleFor(x => x.DataNascimento).NotEmpty().WithMessage("O campo Data de Nascimento é obrigatório");
-            RuleFor(x => x.Sexo).NotEmpty();
-            RuleFor(x => x.TipoPagamento).NotEmpty();
-            RuleFor(x => x.Ativo).NotEmpty();
         }
     }
 
@@ -28,14 +20,6 @@ namespace ApiConsultorio.Application.Shared.Validator
     {
         public PacienteUpdateValidator()
         {
-            RuleFor(x => x.Nome).NotEmpty();
-            RuleFor(x => x.CPF).NotEmpty();
-            RuleFor(x => x.Telefone).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty().MinimumLength(3).MaximumLength(50);
-            RuleFor(x => x.DataNascimento).NotEmpty().WithMessage("O campo Data de Nascimento é obrigatório");
-            RuleFor(x => x.Sexo).NotEmpty();
-            RuleFor(x => x.TipoPagamento).NotEmpty();
-            RuleFor(x => x.Ativo).NotEmpty();
         }
     }
 }

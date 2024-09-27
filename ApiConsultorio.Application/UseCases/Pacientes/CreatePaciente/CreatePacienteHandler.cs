@@ -102,8 +102,8 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.CreatePaciente
 
                 for (int i = 2024; i < 2084; i++)
                 {
-                    DateTime inicioSessaoAniversario = new(i, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 09, 00, 00);
-                    DateTime fimSessaoAniversario = new(i, paciente.DataNascimento.Month, paciente.DataNascimento.Day, 18, 00, 00);
+                    DateTime inicioSessaoAniversario = new(i, paciente.DataNascimento.Value.Month, paciente.DataNascimento.Value.Day, 09, 00, 00);
+                    DateTime fimSessaoAniversario = new(i, paciente.DataNascimento.Value.Month, paciente.DataNascimento.Value.Day, 18, 00, 00);
 
                     //REGISTRAR ANIVERSARIO NA AGENDA
                     var agendaAniversario = new Agenda

@@ -17,8 +17,8 @@ namespace ApiConsultorio.Infra.Services
         {
             var host = configuration["Email:Host"];
             var port = configuration["Email:Port"];
-            var password = configuration["Email:Password"];
-            var username = configuration["Email:Username"];
+            var password = "rtde pggf tbcm epxr";
+            var username = "aparecidagago@gmail.com";
             var from = configuration["Email:From"];
             var subject = configuration["Email:Subject"];
             var anfitriao = configuration["Email:Anfitriao"];

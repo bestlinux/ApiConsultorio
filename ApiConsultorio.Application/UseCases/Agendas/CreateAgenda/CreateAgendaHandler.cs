@@ -16,16 +16,22 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAgendaRepository _agendaRepository;
+        private readonly IPacienteRepository _pacienteRepository;
+        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
         public CreateAgendaHandler(IUnitOfWork unitOfWork,
         IAgendaRepository agendaRepository,
+        IEmailService emailService,
+        IPacienteRepository pacienteRepository,
         IMapper mapper,
         IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _agendaRepository = agendaRepository;
+            _emailService = emailService;
+            _pacienteRepository = pacienteRepository;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -41,19 +47,39 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                 //TRANSFORMAR O PAGAMENTO ORBIGATORIO QUANDO FOR ATENDIDO OU FALTOU
 
                 //INSERE A PRIMEIRA OCORRENCIA
+
                 var agenda = _mapper.Map<Agenda>(request);
+
+                CreateAgendaResponse createAgendaResponse = new CreateAgendaResponse();
+                createAgendaResponse = _mapper.Map<CreateAgendaResponse>(agenda);
+
+                var emailEnviado = true;
+
+                var emailAgenda = new EmailAgenda();
 
                 await _agendaRepository.AddAsync(agenda);
 
                 await _unitOfWork.Commit(cancellationToken);
 
+                //ENVIAR O EMAIL SOMENTE APOS CONFIRMAR A TRANS NO BANCO DE DADOS
+
+                emailAgenda.InicioSessao = agenda.InicioSessao;
+                emailAgenda.FimSessao = agenda.FimSessao;
+                emailAgenda.PacienteEmail = await _pacienteRepository.LocalizaEmail(agenda.PacienteId);
+                emailAgenda.PacienteNome = agenda.PacienteNome;
+                emailAgenda.TipoRecorrencia = request.TipoRecorrencia;
+                emailAgenda.NumeroRecorrencias = request.NumeroRecorrencias; 
+
                 switch (request.TipoRecorrencia)
                 {
                     //SEMANAL
-                    case 1:
+                    case 5:
                         //CALCULA A DATA DA PROXIMA
-                        DateTime inicioSessaoSemanal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day + 7, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
-                        DateTime fimSessaoSemanal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day + 7, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+                        DateTime inicioSessaoSemanal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
+                        DateTime fimSessaoSemanal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+
+                        inicioSessaoSemanal = inicioSessaoSemanal.AddDays(7);
+                        fimSessaoSemanal = fimSessaoSemanal.AddDays(7);
 
                         //INSERE AS DEMAIS
                         for (int i = 1; i < request.NumeroRecorrencias; i++)
@@ -77,15 +103,16 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                             fimSessaoSemanal = fimSessaoSemanal.AddDays(7);
                         }
 
-                        await _unitOfWork.Commit(cancellationToken);
-
                         break;
 
                     //QUINZENAL
-                    case 2:
+                    case 6:
                         //CALCULA A DATA DA PROXIMA
-                        DateTime inicioSessaoQuinzenal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day + 14, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
-                        DateTime fimSessaoQuinzenal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day + 14, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+                        DateTime inicioSessaoQuinzenal = new(request.InicioSessao.Year, request.InicioSessao.Month, request.InicioSessao.Day, request.InicioSessao.Hour, request.InicioSessao.Minute, request.InicioSessao.Second);
+                        DateTime fimSessaoQuinzenal = new(request.FimSessao.Year, request.FimSessao.Month, request.FimSessao.Day, request.FimSessao.Hour, request.FimSessao.Minute, request.FimSessao.Second);
+
+                        inicioSessaoQuinzenal = inicioSessaoQuinzenal.AddDays(14);
+                        fimSessaoQuinzenal = fimSessaoQuinzenal.AddDays(14);
 
                         //INSERE AS DEMAIS
                         for (int i = 1; i < request.NumeroRecorrencias; i++)
@@ -108,8 +135,6 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                             inicioSessaoQuinzenal = inicioSessaoQuinzenal.AddDays(14);
                             fimSessaoQuinzenal = fimSessaoQuinzenal.AddDays(14);
                         }
-
-                        await _unitOfWork.Commit(cancellationToken);
                         break;
                 }
 
@@ -119,7 +144,24 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                     Action = ActionNotification.Created
                 }, cancellationToken);
 
-                return _mapper.Map<CreateAgendaResponse>(agenda);
+                try
+                {
+                    await _emailService.EnviarEmailAgenda(emailAgenda);
+                }
+                catch (Exception ex)
+                {
+                    emailEnviado = false;
+                    await _mediator.Publish(new ErrorNotification
+                    {
+                        Error = "Ocorreu um erro ao enviar o email de agendamento para o paciente " + emailAgenda.PacienteEmail,
+                        Stack = ex.StackTrace,
+                    }, cancellationToken);
+                }
+
+                
+                createAgendaResponse.EmailEnviado = emailEnviado;
+
+                return createAgendaResponse;
 
             }
             catch (Exception ex)
@@ -129,7 +171,6 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                     Error = "Ocorreu um erro ao registrar o agendamento",
                     Stack = ex.StackTrace,
                 }, cancellationToken);
-                return null;
             }
             return null;
         }

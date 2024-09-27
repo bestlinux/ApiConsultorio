@@ -10,5 +10,7 @@ namespace ApiConsultorio.Domain.Interfaces
     public interface IPacienteRepository : IRepository<Paciente>
     {
         Task<IEnumerable<Paciente>> LocalizaAniversariantes(int Mes);
+
+        Task<string> LocalizaEmail(int ?pacienteId);
     }
 }

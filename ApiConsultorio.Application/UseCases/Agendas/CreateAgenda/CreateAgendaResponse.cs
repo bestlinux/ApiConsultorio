@@ -28,5 +28,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
         public DateTime FimSessao { get; set; }
 
         public double? ValorSessao { get; set; }
+
+        public bool EmailEnviado { get; set; }
     }
 }

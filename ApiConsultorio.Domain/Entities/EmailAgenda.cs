@@ -15,5 +15,9 @@ namespace ApiConsultorio.Domain.Entities
         public DateTime? InicioSessao { get; set; }
 
         public DateTime? FimSessao { get; set; }
+
+        public int ?NumeroRecorrencias { get; set; }
+
+        public int ?TipoRecorrencia { get; set; }
     }
 }

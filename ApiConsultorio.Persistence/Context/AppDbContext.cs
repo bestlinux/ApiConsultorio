@@ -38,15 +38,15 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         // 1 : N => Categoria : Mangas
         builder.Entity<Paciente>().HasKey(t => t.Id);
-        builder.Entity<Paciente>().Property(p => p.Nome).HasMaxLength(600).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.Telefone).HasMaxLength(50).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.DataNascimento).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.Sexo).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.Email).HasMaxLength(100).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.CPF).HasMaxLength(100).IsRequired();
-        builder.Entity<Paciente>().Property(p => p.TipoPagamento).HasMaxLength(100).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.Nome).HasMaxLength(700);
+        builder.Entity<Paciente>().Property(p => p.Telefone).HasMaxLength(50);
+        builder.Entity<Paciente>().Property(p => p.DataNascimento);
+        builder.Entity<Paciente>().Property(p => p.Sexo);
+        builder.Entity<Paciente>().Property(p => p.Email).HasMaxLength(100);
+        builder.Entity<Paciente>().Property(p => p.CPF).HasMaxLength(100);
+        builder.Entity<Paciente>().Property(p => p.TipoPagamento).HasMaxLength(100);
         builder.Entity<Paciente>().Property(p => p.ValorSessao).HasPrecision(10, 2);
-        builder.Entity<Paciente>().Property(p => p.Ativo).IsRequired();
+        builder.Entity<Paciente>().Property(p => p.Ativo);
 
         builder.Entity<Pagamento>().HasKey(t => t.Id);
 

@@ -9,6 +9,7 @@ COPY ApiConsultorio.WebApi/*.csproj ./ApiConsultorio.WebApi/
 COPY ApiConsultorio.Application/*.csproj ./ApiConsultorio.Application/
 COPY ApiConsultorio.Domain/*.csproj ./ApiConsultorio.Domain/
 COPY ApiConsultorio.Persistence/*.csproj ./ApiConsultorio.Persistence/
+COPY ApiConsultorio.Infra/*.csproj ./ApiConsultorio.Infra/
 COPY ApiConsultorio.UnitTest/*.csproj ./ApiConsultorio.UnitTest/
 
 RUN dotnet restore
@@ -18,6 +19,7 @@ COPY ApiConsultorio.WebApi/. ./ApiConsultorio.WebApi/
 COPY ApiConsultorio.Application/. ./ApiConsultorio.Application/
 COPY ApiConsultorio.Domain/. ./ApiConsultorio.Domain/
 COPY ApiConsultorio.Persistence/. ./ApiConsultorio.Persistence/
+COPY ApiConsultorio.Infra/. ./ApiConsultorio.Infra/
 COPY ApiConsultorio.UnitTest/. ./ApiConsultorio.UnitTest/
 
 WORKDIR /app/ApiConsultorio
