@@ -34,5 +34,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
         public int TipoRecorrencia { get; set; }
 
         public int NumeroRecorrencias { get; set; }
+
+        public bool EmailAgendamento { get; set; }
     }
 }

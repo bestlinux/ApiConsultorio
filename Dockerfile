@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ENV TZ=America/Sao_Paulo
+RUN ln -sf /usr/share/zoneinfo/posix/America/Sao_Paulo /etc/localtime
 WORKDIR /app/ApiConsultorio
-
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 
 # copy csproj and restore as distinct layers

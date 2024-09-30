@@ -144,21 +144,27 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                     Action = ActionNotification.Created
                 }, cancellationToken);
 
-                try
+                if (request.EmailAgendamento)
                 {
-                    await _emailService.EnviarEmailAgenda(emailAgenda);
+                    try
+                    {
+                        await _emailService.EnviarEmailAgenda(emailAgenda);
+                    }
+                    catch (Exception ex)
+                    {
+                        emailEnviado = false;
+                        await _mediator.Publish(new ErrorNotification
+                        {
+                            Error = "Ocorreu um erro ao enviar o email de agendamento para o paciente " + emailAgenda.PacienteEmail,
+                            Stack = ex.StackTrace,
+                        }, cancellationToken);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
                     emailEnviado = false;
-                    await _mediator.Publish(new ErrorNotification
-                    {
-                        Error = "Ocorreu um erro ao enviar o email de agendamento para o paciente " + emailAgenda.PacienteEmail,
-                        Stack = ex.StackTrace,
-                    }, cancellationToken);
                 }
 
-                
                 createAgendaResponse.EmailEnviado = emailEnviado;
 
                 return createAgendaResponse;
