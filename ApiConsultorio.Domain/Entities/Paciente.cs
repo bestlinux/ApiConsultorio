@@ -26,6 +26,8 @@ namespace ApiConsultorio.Domain.Entities
 
         public string? CPF { get; set; }
 
+        public string? CPFPagador { get; set; }
+
         public int? Pais { get; set; }
 
         //ENDERECO

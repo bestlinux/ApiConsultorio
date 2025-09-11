@@ -1,8 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ENV TZ=America/Sao_Paulo
-RUN ln -sf /usr/share/zoneinfo/posix/America/Sao_Paulo /etc/localtime
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /app/ApiConsultorio
-RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 
 # copy csproj and restore as distinct layers
 COPY *.sln . 
@@ -26,10 +24,12 @@ COPY ApiConsultorio.UnitTest/. ./ApiConsultorio.UnitTest/
 WORKDIR /app/ApiConsultorio
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/aspnet
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
-
-ADD ApiConsultorio.pfx /root/.aspnet/https/
 
 COPY --from=build /app/ApiConsultorio/out ./
 ENTRYPOINT ["dotnet", "ApiConsultorio.WebApi.dll"]
+
+EXPOSE 8080
+EXPOSE 8081

@@ -23,6 +23,8 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente
 
         public string CPF { get; set; }
 
+        public string? CPFPagador { get; set; }
+
         public int Pais { get; set; }
 
         public string CEP { get; set; }

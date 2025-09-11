@@ -1,4 +1,5 @@
-﻿using ApiConsultorio.Domain.Entities;
+﻿
+using ApiConsultorio.Domain.Entities;
 using ApiConsultorio.Domain.Interfaces;
 using ApiConsultorio.Persistence.Context;
 using Microsoft.EntityFrameworkCore;

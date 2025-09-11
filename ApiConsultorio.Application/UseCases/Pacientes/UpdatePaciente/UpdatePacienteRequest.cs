@@ -26,6 +26,8 @@ namespace ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente
 
         public string? CPF { get; set; }
 
+        public string? CPFPagador { get; set; }
+
         public int? Pais { get; set; }
 
         public string? CEP { get; set; }

@@ -5,9 +5,12 @@ using ApiConsultorio.Application.UseCases.Pacientes.GetAllPaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.GetByIdPaciente;
 using ApiConsultorio.Application.UseCases.Pacientes.UpdatePaciente;
 using ApiConsultorio.Domain.Entities;
-using Correios.NET;
-using Correios.NET.Models;
-using FluentValidation;
+using FluentEmail.Core.Models;
+
+
+//using Correios.NET;
+//using Correios.NET.Models;
+//using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -124,20 +127,7 @@ namespace ApiConsultorio.WebApi.Controllers
         [Route("buscacep/{cep}")]
         public ActionResult<Endereco> BuscaCEP(string cep)
         {
-            CorreiosService correiosService = new();
-
-            var addresses = correiosService.GetAddresses(cep);
-
             Endereco endereco = new();
-
-            foreach (var address in addresses)
-            {
-                endereco.Logradouro = address.Street;
-                endereco.Bairro = address.District;
-                endereco.Estado = address.State;
-                endereco.Cidade = address.City;
-
-            }
             return Ok(endereco);
         }
 

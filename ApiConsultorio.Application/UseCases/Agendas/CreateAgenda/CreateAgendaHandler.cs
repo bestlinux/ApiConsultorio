@@ -93,6 +93,8 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                                 StatusConsulta = request.StatusConsulta,
                                 TipoConsulta = request.TipoConsulta,
                                 ValorSessao = request.ValorSessao,
+                                CPF = request.CPF,
+                                CPFPagador = request.CPFPagador,
                             };
                             //COMMIT DAS REPETICOES
                             await _agendaRepository.AddAsync(agendaRepeticao);
@@ -126,6 +128,8 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                                 StatusConsulta = request.StatusConsulta,
                                 TipoConsulta = request.TipoConsulta,
                                 ValorSessao = request.ValorSessao,
+                                CPF = request.CPF,
+                                CPFPagador = request.CPFPagador,
                             };
                             //COMMIT DAS REPETICOES
                             await _agendaRepository.AddAsync(agendaRepeticao);

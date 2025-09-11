@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ENV TZ=America/Sao_Paulo
+RUN ln -sf /usr/share/zoneinfo/posix/America/Sao_Paulo /etc/localtime
 WORKDIR /app/ApiConsultorio
-
 RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 
 # copy csproj and restore as distinct layers
@@ -25,10 +26,18 @@ COPY ApiConsultorio.UnitTest/. ./ApiConsultorio.UnitTest/
 WORKDIR /app/ApiConsultorio
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/aspnet
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 ADD ApiConsultorio.pfx /root/.aspnet/https/
 
 COPY --from=build /app/ApiConsultorio/out ./
 ENTRYPOINT ["dotnet", "ApiConsultorio.WebApi.dll"]
+
+ENV ASPNETCORE_URLS="https://+;http://+"
+ENV ASPNETCORE_HTTPS_PORT="8001"
+ENV Kestrel:Certificates:Default:Path=/root/.aspnet/https/ApiConsultorio.pfx
+ENV Kestrel:Certificates:Default:Password=20032014@
+
+EXPOSE 443
+EXPOSE 80
