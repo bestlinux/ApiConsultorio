@@ -62,7 +62,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                 await _unitOfWork.Commit(cancellationToken);
 
                 //ENVIAR O EMAIL SOMENTE APOS CONFIRMAR A TRANS NO BANCO DE DADOS
-                //TESTE COMMIT
+                //TESTE COMMITTTT
                 emailAgenda.InicioSessao = agenda.InicioSessao;
                 emailAgenda.FimSessao = agenda.FimSessao;
                 emailAgenda.PacienteEmail = await _pacienteRepository.LocalizaEmail(agenda.PacienteId);
