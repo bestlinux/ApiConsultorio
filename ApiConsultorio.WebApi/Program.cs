@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using ApiConsultorio.Persistence.Services;
 using ApiConsultorio.Application.Services;
 using ApiConsultorio.Infra.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
