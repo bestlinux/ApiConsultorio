@@ -53,7 +53,7 @@ namespace ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda
                 //Text = "Desmarcado" Value = "3" />
                 //Text = "Nenhum" Value = "0" />               
 
-                if (request.StatusConsulta == 1 || request.StatusConsulta == 2)
+                if (request.StatusConsulta == 1 || request.StatusConsulta == 2 && request.CategoriaAgendamento != null && request.CategoriaAgendamento != 0)
                 {
                     // request.TipoConsulta == 3 = primeiro atendimento
                     if (request.TipoConsulta != 3)

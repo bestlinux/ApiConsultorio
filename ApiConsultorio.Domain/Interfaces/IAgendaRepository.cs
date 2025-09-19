@@ -13,6 +13,8 @@ namespace ApiConsultorio.Domain.Interfaces
 
         Task DeletaTodosAgendamentosPorRecorrencia(int PacienteId);
 
+        Task DeletaTodosAgendamentosPessoalPorRecorrencia(int CategoriaAgendamento);
+
         Task<IEnumerable<Agenda>> LocalizaAniversarios(int idPaciente, int tipoConsulta);
     }
 }

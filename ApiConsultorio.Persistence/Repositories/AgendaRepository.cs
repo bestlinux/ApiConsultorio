@@ -14,6 +14,13 @@ namespace ApiConsultorio.Persistence.Repositories
 {
     public class AgendaRepository(AppDbContext context) : Repository<Agenda>(context), IAgendaRepository
     {
+        public async Task DeletaTodosAgendamentosPessoalPorRecorrencia(int CategoriaAgendamento)
+        {
+            _db.Agendas.RemoveRange(_db.Agendas.AsNoTracking()
+              .Where(b => b.CategoriaAgendamento == CategoriaAgendamento));
+            await _db.SaveChangesAsync();
+        }
+
         public async Task DeletaTodosAgendamentosPorRecorrencia(int PacienteId)
         {
             _db.Agendas.RemoveRange(_db.Agendas.AsNoTracking()

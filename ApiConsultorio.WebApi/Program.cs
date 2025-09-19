@@ -66,6 +66,17 @@ c.AddSecurityRequirement(new OpenApiSecurityRequirement
 });
 
 
+var supportedCultures = new[]
+{
+    new System.Globalization.CultureInfo("pt-BR"),
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pt-BR");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 //builder.Services.AddAutoMapper(typeof(DomainToDTOProfile));
 

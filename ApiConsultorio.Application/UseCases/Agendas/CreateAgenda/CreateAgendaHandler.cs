@@ -53,23 +53,12 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                 CreateAgendaResponse createAgendaResponse = new CreateAgendaResponse();
                 createAgendaResponse = _mapper.Map<CreateAgendaResponse>(agenda);
 
-                var emailEnviado = true;
-
-                var emailAgenda = new EmailAgenda();
+                var emailEnviado = true;           
 
                 await _agendaRepository.AddAsync(agenda);
 
                 await _unitOfWork.Commit(cancellationToken);
-
-                //ENVIAR O EMAIL SOMENTE APOS CONFIRMAR A TRANS NO BANCO DE DADOS
-                //TESTE COMMITTTT
-                emailAgenda.InicioSessao = agenda.InicioSessao;
-                emailAgenda.FimSessao = agenda.FimSessao;
-                emailAgenda.PacienteEmail = await _pacienteRepository.LocalizaEmail(agenda.PacienteId);
-                emailAgenda.PacienteNome = agenda.PacienteNome;
-                emailAgenda.TipoRecorrencia = request.TipoRecorrencia;
-                emailAgenda.NumeroRecorrencias = request.NumeroRecorrencias; 
-
+               
                 switch (request.TipoRecorrencia)
                 {
                     //SEMANAL
@@ -95,6 +84,8 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                                 ValorSessao = request.ValorSessao,
                                 CPF = request.CPF,
                                 CPFPagador = request.CPFPagador,
+                                CategoriaAgendamento = request.CategoriaAgendamento,
+                                Observacoes = request.Observacoes
                             };
                             //COMMIT DAS REPETICOES
                             await _agendaRepository.AddAsync(agendaRepeticao);
@@ -130,6 +121,8 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
                                 ValorSessao = request.ValorSessao,
                                 CPF = request.CPF,
                                 CPFPagador = request.CPFPagador,
+                                CategoriaAgendamento = request.CategoriaAgendamento,
+                                Observacoes = request.Observacoes
                             };
                             //COMMIT DAS REPETICOES
                             await _agendaRepository.AddAsync(agendaRepeticao);
@@ -150,8 +143,18 @@ namespace ApiConsultorio.Application.UseCases.Agendas.CreateAgenda
 
                 if (request.EmailAgendamento)
                 {
+                    var emailAgenda = new EmailAgenda();
                     try
-                    {
+                    {                       
+                        //ENVIAR O EMAIL SOMENTE APOS CONFIRMAR A TRANS NO BANCO DE DADOS
+                        //TESTE COMMITTTT
+                        emailAgenda.InicioSessao = agenda.InicioSessao;
+                        emailAgenda.FimSessao = agenda.FimSessao;
+                        emailAgenda.PacienteEmail = await _pacienteRepository.LocalizaEmail(agenda.PacienteId);
+                        emailAgenda.PacienteNome = agenda.PacienteNome;
+                        emailAgenda.TipoRecorrencia = request.TipoRecorrencia;
+                        emailAgenda.NumeroRecorrencias = request.NumeroRecorrencias;
+
                         await _emailService.EnviarEmailAgenda(emailAgenda);
                     }
                     catch (Exception ex)

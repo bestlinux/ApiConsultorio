@@ -4,6 +4,7 @@ using ApiConsultorio.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiConsultorio.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250918142903_Adiciona-Categoria-Agendamento")]
+    partial class AdicionaCategoriaAgendamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +47,6 @@ namespace ApiConsultorio.WebApi.Migrations
 
                     b.Property<DateTime>("InicioSessao")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Observacoes")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PacienteId")
                         .HasColumnType("int");

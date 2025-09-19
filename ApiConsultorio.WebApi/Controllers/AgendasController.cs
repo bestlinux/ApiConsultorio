@@ -3,6 +3,7 @@ using ApiConsultorio.Application.UseCases.Agendas.CreateAgenda;
 using ApiConsultorio.Application.UseCases.Agendas.DeleteAgenda;
 using ApiConsultorio.Application.UseCases.Agendas.DeleteAgendaByTipoConsulta;
 using ApiConsultorio.Application.UseCases.Agendas.DeleteAgendaPacienteByRecorrencia;
+using ApiConsultorio.Application.UseCases.Agendas.DeleteAgendaPessoalByRecorrencia;
 using ApiConsultorio.Application.UseCases.Agendas.GetAllAgenda;
 using ApiConsultorio.Application.UseCases.Agendas.UpdateAgenda;
 using ApiConsultorio.Domain.Entities;
@@ -42,6 +43,15 @@ namespace ApiConsultorio.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> RemoveByRecorrencia([FromQuery] DeleteAgendaPacienteByRecorrenciaRequest request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-agenda-pessoal-by-recorrencia")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RemoveAgendaPessoalByRecorrencia([FromQuery] DeleteAgendaPessoalByRecorrenciaRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(request, cancellationToken);
             return Ok(result);

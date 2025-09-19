@@ -29,11 +29,26 @@ namespace ApiConsultorio.Application.UseCases.Agendas.GetAllAgenda
 
         public int? StatusConsulta { get; set; }
 
+        //Id = 1, Nome = "Médico" },
+        //Id = 2, Nome = "Terapia" },
+        //Id = 3, Nome = "Supervisão" },
+        //Id = 4, Nome = "Grupo de Estudos" },
+        //Id = 5, Nome = "Clube do livro psicanálise" }
+        //Id = 6, Nome = "Clube do livro" },
+        //Id = 7, Nome = "Textos de Freud" },
+        //Id = 8, Nome = "Confraria" },
+        //Id = 9, Nome = "Psicanálise" },
+        //Id = 10, Nome = "Francês" },
+        //Id = 11, Nome = "Outros" },
+        public int? CategoriaAgendamento { get; set; }
+
         public DateTime InicioSessao { get; set; }
 
         public DateTime FimSessao { get; set; }
 
         public double? ValorSessao { get; set; }
+
+        public string? Observacoes { get; set; }
 
         /*//REGRAS
         //1 - QUANDO FOR PRIMEIRA CONSULTA, OS CAMPOS TIPO PAGAMENTO E VALOR SESSÃO VÃO ESTA DESABILITADOS

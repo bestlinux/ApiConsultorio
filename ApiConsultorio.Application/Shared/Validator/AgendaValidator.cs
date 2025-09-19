@@ -14,22 +14,16 @@ namespace ApiConsultorio.Application.Shared.Validator
     {
         public AgendaCreateValidator()
         {
-            RuleFor(x => x.PacienteId).NotEmpty();
-            RuleFor(x => x.TipoConsulta).NotEmpty();
             RuleFor(x => x.InicioSessao).NotEmpty();
             RuleFor(x => x.FimSessao).NotEmpty();
-            RuleFor(x => x.ValorSessao).NotEmpty();
         }
     }
     public class AgendaUpdateValidator : AbstractValidator<UpdateAgendaRequest>
     {
         public AgendaUpdateValidator()
         {
-            RuleFor(x => x.PacienteId).NotEmpty();
-            RuleFor(x => x.TipoConsulta).NotEmpty();
             RuleFor(x => x.InicioSessao).NotEmpty();
             RuleFor(x => x.FimSessao).NotEmpty();
-            RuleFor(x => x.ValorSessao).NotEmpty();
         }
     }
 }
